@@ -1,0 +1,9 @@
+
+
+
+
+patch:
+    translator/user_dict: user_dict
+    translator/db_class: tabledb
+
+

@@ -1,0 +1,39 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.12.0
+  generator: "Rime::SwitcherSettings"
+  modified_time: "Fri Jan 25 11:10:27 2019"
+  rime_version: 1.3.2
+patch:
+  switcher/hotkeys:
+    - "Control+grave"
+    - "Control+Shift+grave"
+    - "Control+minus"
+  schema_list:
+    - schema: whaleliu
+    - schema: luna_pinyin
+    #- schema: whaleliu1
+    #- schema: whalet
+    #- schema: whaleliut
+    #- suhema: cangjie5liu
+    #- schema: cangjie6liu 
+    #- schema: uniliu
+    #- schema: liur
+    #- schema: newcj
+    #- schema: whale
+    #- schema: cangjie6
+    #- schema: cangjie6t
+    #- schema: cangjie6liu
+    #- schema: cangjie6_express
+    #- schema: bopomofo_hsu
+    #- schema: combo_pinyin
+  menu/page_size: 7
+  recognizer/patterns/rime123: "^rime[0-9]+$"
+  ascii_composer/good_old_caps_lock: false
+  ascii_composer/switch_key:
+    Caps_Lock: commit_code
+    Shift_L: noop
+    Shift_R: noop
+    Control_L: commit_code
+    Control_R: inline_ascii
+#  menu/alternative_select_keys: AOEUIDHTN

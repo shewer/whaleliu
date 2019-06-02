@@ -1,0 +1,28 @@
+# encoding: utf-8
+
+# 蒼頡檢字法詞典，來自Github/lotem/brise/essay
+# 加入粵拼詞匯，來自Github/lotem/brise/jyutping
+# 雪齋整理
+# License: GPL
+---
+name: cangjie6liu.extended
+version: "0.32"
+#sort: by_weight
+use_preset_vocabulary: false
+import_tables:
+  - cangjie6liu
+  - cangjie6.extended
+columns:
+  - text
+  - code 
+  - weight
+encoder:
+  rules:
+    - length_equal: 2
+      formula: AaAzBaBz
+    - length_equal: 3
+      formula: AaAzBaBzZa
+    - length_in_range: [4, 5]
+      formula: AaBaYaZa
+  tail_anchor: "'"
+...

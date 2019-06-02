@@ -1,0 +1,34 @@
+# encoding: utf-8
+#
+#鯨魚輸入法
+##著作權擁有人
+##學習書籍:「鯨魚、我的倉頡輸入法」(ISBN:957-527-240-4)
+##http://www.geocities.com/mycj3/        #服務網址:
+##趙惟倫 #格式修改(無附加限制):
+##Whale  #授權方式:
+##鯨魚   %cname
+##Whale:en;鲸鱼:zh_CN;鯨魚:zh;   %ename
+##鯨魚   #sname
+##1234567890     %selkey
+
+---
+name: whaleliu.extended 
+version: "1"
+#sort: by_weight 
+
+import_tables:
+    - whale.symble
+    - whaleliu
+    - cangjie6.extended 
+use_preset_vocabulary: false   
+#min_phrase_weight: 50
+encoder:
+  rules:
+    - length_equal: 2
+      formula: AaAzBaBz
+    - length_equal: 3
+      formula: AaAzBaBzZa
+    - length_in_range: [4, 10]
+      formula: AaAzBaBzCaZa
+  tail_anchor: "''"
+...
