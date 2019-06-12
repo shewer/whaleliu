@@ -17,18 +17,26 @@ version: "1"
 #sort: by_weight 
 
 import_tables:
-    - whale.symble
     - whaleliu
+    - whale.symble
     - cangjie6.extended 
 use_preset_vocabulary: false   
+columns: 
+  - text
+  - code
+  - weight
+
 #min_phrase_weight: 50
 encoder:
   rules:
     - length_equal: 2
-      formula: AaAzBaBz
+      formula: AaAzBaBzBz
     - length_equal: 3
       formula: AaAzBaBzZa
     - length_in_range: [4, 10]
       formula: AaAzBaBzCaZa
-  tail_anchor: "''"
+  tail_anchor: "'"
 ...
+
+
+

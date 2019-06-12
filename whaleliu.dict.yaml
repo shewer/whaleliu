@@ -25,7 +25,7 @@ use_preset_vocabulary: false
 encoder:
   rules:
     - length_equal: 2
-      formula: AaAzBaBz
+      formula: AaAzBaBzBz
     - length_equal: 3
       formula: AaAzBaBzZa
     - length_in_range: [4, 10]
