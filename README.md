@@ -3,9 +3,16 @@
 schema 參照 cangjie6.schema
 
 * 反查字根 （全部/拼音/倉頡/蝦米 ） `  / `P / `C /`L
-* 拼音/倉頡/蝦米字根輸入    P   C  L 
+* 拼音/倉頡/蝦米字根輸入    P   C  L /
+* /  符表
 * 二 三 選字   “-”   “.'
 * 簡碼 頭 + v + 尾 
+* c-s `  選單
+* c-s   1 / 2 /3 /4  ： next / 中英 / 全半/漢簡/ 增廣
+* Lctrl 英文送字並hcsxx切換並存英文木模
+* Rctrl 取消拼字 英文輸入  ENTER 上字
+* Rctrl 中英
+* ctrl-space  半 全
 
 
 ```
