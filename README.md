@@ -52,20 +52,51 @@ liur_TradMod.dict.yaml
 
 
 -----
-以下是此輸入法資料檔
-cangjie6liu.schema.yaml   舞倉頡六
-cangjie6liu.dict.yaml     
-cangjie6liu.extended.dict.yaml  import cangjie6.extended 
-liur.extended.dict.yaml  import liur_Trad liur_TradExt
-default.custom.yaml      luna_pinyin(拼音查碼須要)  whaleliu 
+### 以下是此輸入法資料檔
+* cangjie6liu.schema.yaml   舞倉頡六
+* cangjie6liu.dict.yaml     
+* cangjie6liu.extended.dict.yaml  import cangjie6.extended 
+* liur.extended.dict.yaml  import liur_Trad liur_TradExt
+* default.custom.yaml      luna_pinyin(拼音查碼須要)  whaleliu 
 
-README.md
-whaleliu.custom.yaml      使用者調整
-whale.symble.dict.yaml    符表
-whaleliu.dict.yaml        
-whaleliu.extended.dict.yaml import whale.symble whaleliu cangjie6.extended
-whaleliu.schema.yaml      鯨舞倉
+* README.md
+* whaleliu.custom.yaml      使用者調整
+* whale.symble.dict.yaml    符表
+* whaleliu.dict.yaml        
+* whaleliu.extended.dict.yaml import whale.symble whaleliu cangjie6.extended
+* whaleliu.schema.yaml      鯨舞倉
 
 
 
+```
+一碼表 （ 從左
+d       日|曰
+m       月
+a       金|舛
+t       木
+w       水
+f       火
+y       土
+z       竹|升|禾
+l       我|戈
+j       十|車
+x       大|乂
+i       中
+e       一
+k       隊|弓|了|耳|乙|夕
+b       人
+h       心
+s       手|寸|丰
+o       口
+c       市|尸|石|戶
+r       對|並|廿
+u       山
+g       女
+q       田
+n       。
+p       新|卜|子|舟
+v       之|魚|米|龍
+;       的|虫
+,       符|羊
+``` 
 
