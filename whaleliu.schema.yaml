@@ -68,6 +68,7 @@ engine:
   - script_translator@pinyin_lookup
   - table_translator@liur_lookup
   - table_translator@cj6liu_lookup
+  - lua_translator@date_translator
 key_binder:
   import_preset: default
   bindings:
@@ -106,6 +107,7 @@ recognizer:
     liur_lookup: "`L[a-z',.;]*'?$|[a-z',.;]+L'$"
     cj6liu_lookup: "`C[a-z]*'?$|[a-z]+C'$"
     reverse_lookup: "`[a-z]*'?$|[a-z]+'$"
+    lua: "``[a-z0-9/:]*'?$"
 
 translator:
   dictionary: &dict 

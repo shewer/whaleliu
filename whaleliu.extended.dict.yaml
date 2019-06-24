@@ -14,29 +14,22 @@
 ---
 name: whaleliu.extended 
 version: "1"
-#sort: by_weight 
+sort: by_weight 
 
 import_tables:
     - whaleliu
+    #- whaleliuvcode
     - whale.symble
-    - cangjie6.extended 
-use_preset_vocabulary: false   
-columns: 
-  - text
-  - code
-  - weight
-
+    #- cangjie6.extended 
+use_preset_vocabulary: true   
 #min_phrase_weight: 50
 encoder:
   rules:
     - length_equal: 2
-      formula: AaAzBaBzBz
+      formula: AaAzBaBz
     - length_equal: 3
       formula: AaAzBaBzZa
     - length_in_range: [4, 10]
       formula: AaAzBaBzCaZa
-  tail_anchor: "'"
+  tail_anchor: "''"
 ...
-
-
-
