@@ -34,6 +34,7 @@ engine:
   - reverse_lookup_filter@pinyin_reverse_lookup
   - reverse_lookup_filter@liur_reverse_lookup
   - reverse_lookup_filter@cj6liu_reverse_lookup
+  - reverse_lookup_filter@vcode_reverse_lookup
   processors:
   - ascii_composer
   - recognizer
@@ -55,6 +56,7 @@ engine:
   - affix_segmentor@pinyin_lookup
   - affix_segmentor@liur_lookup
   - affix_segmentor@cj6liu_lookup
+  - affix_segmentor@vcode_lookup
   - affix_segmentor@reverse_lookup
   - punct_segmentor
   - fallback_segmentor 
@@ -68,6 +70,7 @@ engine:
   - script_translator@pinyin_lookup
   - table_translator@liur_lookup
   - table_translator@cj6liu_lookup
+  - table_translator@vcode_lookup
   - lua_translator@date_translator
 key_binder:
   import_preset: default
@@ -106,6 +109,7 @@ recognizer:
     pinyin_lookup: "`P[a-z]*?$|[a-z]+P'$"
     liur_lookup: "`L[a-z',.;]*'?$|[a-z',.;]+L'$"
     cj6liu_lookup: "`C[a-z]*'?$|[a-z]+C'$"
+    vcode_lookup: "`V[a-z]*'?$|[a-z]+C'$"
     reverse_lookup: "`[a-z]*'?$|[a-z]+'$"
     lua: "``[a-z0-9/:]*'?$"
 
@@ -133,6 +137,27 @@ translator:
 #    - "xlit|abcdefghijklmnopqrstuvwxyz|dmatwfyzljxiekbhsocrugqnpv|"
 #  - xform/^([a-z]*)$/$1\t（\U$1\E）/
 #  - xlit|DMATWFYZLJXIEKBHSOCRUGQNPV[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+vcode_lookup:
+  tag: vcode_lookup 
+  dictionary: whaleliuvcode
+  prefix: "`V"
+  suffix: "'"
+  tips: 【鯨舞蒼-簡】
+  closing_tips: *ctips
+  prefix: *dict_fmt
+  comment_format: *dict_fmt 
+
+vcode_reverse_lookup:
+  tags: [ vcode_lookup ]
+  dictionary: *dict 
+  comment_format: &rcomment    
+    - xform/$/〕/
+    - xform/^/〔/
+    - xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+  overwrite_comment: true  # 覆蓋其他提示
+  #preedit_format: *liur_comment
+
+      
 
 pinyin:
   tag: pinyin
@@ -156,11 +181,11 @@ pinyin_lookup:
   tag: pinyin_lookup
   dictionary: *pinyin_dict 
   preedit_format: *pinyin_preedit
-  comment_format: &rcomment
-    - xform/$/〕/
-    - xform/^/〔/
+  comment_format: *rcomment
+    #- xform/$/〕/
+    #- xform/^/〔/
     #- xform/([a-z]/\1\U\1/)
-    - xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+    #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
   #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
   prefix: "`P"
 # 獨用漢語拼音反查在反查鍵「`」之後再鍵入〔大寫〕「P」
@@ -255,6 +280,7 @@ reverse_lookup:
   tips: 【反查】
   closing_tips: *ctips
   extra_tags:
+    - vcode_lookup 
     - pinyin_lookup
     - liur_lookup
     - cj6liu_lookup     

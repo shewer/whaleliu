@@ -18,8 +18,10 @@ sort: by_weight
 
 import_tables:
     - whaleliu
+    #- whaleall1
     #- whaleliuvcode
     - whale.symble
+    - mydict
     #- cangjie6.extended 
 use_preset_vocabulary: true   
 #min_phrase_weight: 50
@@ -33,3 +35,6 @@ encoder:
       formula: AaAzBaBzCaZa
   tail_anchor: "''"
 ...
+
+
+
