@@ -2,10 +2,189 @@
 
 
 
-patch:
-    translator/user_dict: user_dict
-    translator/db_class: tabledb
-    recognizer/patterns/uppercase:
+# 快速設定 自查碼的功能，且不影響 schema 整體
+#
 
+
+
+
+#DICT__: &dict
+    #cangjie5liu
+    #  手動修改   ##1 ##2 ##3 ##4 ##5 ##6  ( 1 2 3 6 重要) 
+    #  此方法會覆蓋 spell 如有衝突，請先從schema copy 比對修改
+    #  
+    #  原理 製作 ? 查碼的 presm    AaAc? -> Aa?Ac  AaAd?? -> Aa??Ad  AaAe??? Aa???Ad
+    #  全覆蓋 speller 設定
+    #  增加 table_translator@vcode_lookup  
+    #  增加 reverse_lookup_filter@vcode_reverse_lookup  
+    #  增加 recognizer/patterns  讓有 ? 字句 進入 vcode_lookup segment
+    #  
+    #  設定 vcode_lookup  ( ##4 ##5 次要)
+    #
+    #  設定 vcode_reverse_lookup 
+    #      # 6  反查 顯示格式( 重要)
+    #
+patch:
+    #------------------ user define area  原來一般設定 可放置此區
+    #style/inline_preedit: true
+    #style/horizontal: true
+    #style/fullscreen: true
+    #translator/user_dict: user_dict
+    #translator/db_class: tabledb
+    translator/enable_charset_filter: true
+    translator/enable_encoder: false
+    translator/enable_sentence: false
+    translator/enable_user_dict: false
+    translator/enable_completion: true
+    #key_binder/bindings/+: 
+    key_binder/bindings:
+        - when: has_menu # 次字上屏
+          accept: "-"
+          send: 2
+        - when: has_menu # 第三字上屏
+          accept: "."
+          send: 3
+        - when: has_menu # 下一頁
+          accept: Tab
+          send: Page_Down
+        - when: has_menu # 上一頁
+          accept: Shift+Tab 
+          send: Page_Up
+          
+        - when: has_menu # 光棒上移
+          accept: "="
+          send: Up
+        - when: has_menu # 光棒下移
+          accept: "/"
+          send: Down
+          # 空白鍵 : 無字 清碼 有字上屏 
+        - { when: composing, accept: space, send: Escape }
+        - { when: has_menu, accept: space, send: space }
+    # 最大碼 
+    speller/max_code_length: 5
+    #recognizer/patterns/uppercase:
+    switches/@0/reset: 1
+    switches/@1/reset: 0  # full_shape  set half mode
+    switches/@4/reset: 1  # ascii_punct set ascii mode 
+
+    # switches:
+    # - name: ascii_mode  # 0
+    #   states:
+    #   - 中文
+    #   - 西文
+    # - name: full_shape
+    #   states:
+    #   - 半角
+    #   - 全角
+    # - name: simplification
+    #   states:
+    #   - 漢字
+    #   - 汉字
+    # - name: extended_charset
+    #   states:
+    #   - 常用
+    #   - 增廣
+    # - name: ascii_punct  # 5
+    #   states:
+    #   - "。，"
+    #   - "．，"
+    # 
+    # 測試用
+    #engine/processors:
+      #- ascii_composer
+      #- recognizer
+      #- key_binder
+      #- speller
+      #- punctuator
+      #- selector
+      #- navigator
+      ##- fluid_editor
+      ##  結束暫存不上屏 
+      #- express_editor
+
+
+
+
+#switches:
+  #- name: ascii_mode
+    #states: [ 中文 , 西文]
+  #- name: full_shape
+    #states: [ 半角, 全角 ]
+  #- name: simplification
+    #states: [ 漢字, 汉字 ]
+  #- name: extended_charset
+    #states: [ 通用, 增廣 ]
+## 默認開啓Unihan全字集
+  #- name: ascii_punct
+    #states: [ "。，",  "．，" ] 
+    #----------------- vcode setup -----------------
+        #segmentors/@before last: 
+            #- affix_segmentor@pinyin
+            #- affix_segmentor@pinyin_lookup
+            #- affix_segmentor@pinyin_reverse_lookup
+
+        #translators/@before last:
+            #- script_translator@pinyin
+        #filters/+:
+            #- reverse_lookup_filter@pinyin_reverse_lookup
+        #recognizer/patterns/+:
+            #- pinyin: "P[a-z]*$"
+            #- pinyin_lookup: "P[a-z;,]$"
+        #pinyin_lookup:
+            #tag: pinyin_lookup
+            #extra_tags: whaleliu
+        #pinyin_reverse_lookup:
+            #tags: [ pinyin_lookup ]
+            #dictionary: luna_pinyin
+
+
+
+    #translator/dictionary: &dict    ##1 #  為了讓 vcode_lookup vcode_reserse_lookup 引用
+        #whaleliu
+    #translator/preedit_format: &fmt  ##2  #目的同上  copy from schema  增加 ?|？ 
+        #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+        #- xlit|?|？|  # ? --> ？　
+
+    #recognizer/patterns/vcode_lookup: "^.+[?]+$"    # 增加 vcode_lookup patterns
+    #engine/filters/+:
+        #- reverse_lookup_filter@vcode_reverse_lookup
+    #engine/translators/+:
+        #- table_translator@vcode_lookup
+    #vcode_lookup: {}
+    #vcode_reverse_lookup: {}
+# copy from schema 
+    #speller:
+      ## 增加 查詢碼表 (prism)
+      #algebra:
+        #- derive/^([a-z]).([a-z])$/$1$2\?/      # 頭尾碼 + ?   
+        #- derive/^([a-z])..([a-z])$/$1$2\?\?/  # 頭尾碼 + ??   
+        #- derive/^([a-z])...([a-z])$/$1$2\?\?\?/   # 頭尾碼 + ???   
+      #alphabet: abcdefghijklmnopqrstuvwxyz[];,.'/? ##3 #  增加 ?
+      ## (習慣在ascii-punct off 模式操作 punctuator / 將失效 可以再加上 "/" 可再觸發 punctuator功能  ) 
+      ##alphabet: zyxwvutsrqponmlkjihgfedcba?/   #   exp
+      #delimiter: " '"
+  # 預設 ascii-punct off 符號鍵為半形上字 特將 [] / 納入才強制觸發 punct  / . , '/ ? 
+  #alphabet: abcdefghijklmnopqrstuvwxyz;,?
+    
+    #vcode_lookup:
+      #closing_tips: "【鯨舞蒼-查】"   ##4 # 自行修改
+      #comment_format: *fmt   #copy from schema  , 增加 ? | ？
+      #dictionary: *dict
+      #max_phrase_length: 1
+      #preedit_format: *fmt
+      #prism: *dict
+      #tag: vcode_lookup
+      #tips: "【查詢】"      ##5 # 自行修改
+    
+    #vcode_reverse_lookup:
+      #comment_format:    # 同 *fmt  加上 括號
+        #- "xform/$/〕/"
+        #- "xform/^/〔/"
+        #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+        #- xlit|?|？|  # ? --> ？　
+      #dictionary: *dict
+      #overwrite_comment: true
+      #tags:
+        #- vcode_lookup
 
 

@@ -1,0 +1,74 @@
+# 快速設定 自查碼的功能，且不影響 schema 整體
+#
+
+
+
+
+#DICT__: &dict
+    #cangjie5liu
+    #  手動修改   ##1 ##2 ##3 ##4 ##5 ##6  ( 1 2 3 6 重要) 
+    #  此方法會覆蓋 spell 如有衝突，請先從schema copy 比對修改
+    #  
+    #  原理 製作 ? 查碼的 presm    AaAc? -> Aa?Ac  AaAd?? -> Aa??Ad  AaAe??? Aa???Ad
+    #  全覆蓋 speller 設定
+    #  增加 table_translator@vcode_lookup  
+    #  增加 reverse_lookup_filter@vcode_reverse_lookup  
+    #  增加 recognizer/patterns  讓有 ? 字句 進入 vcode_lookup segment
+    #  
+    #  設定 vcode_lookup  ( ##4 ##5 次要)
+    #
+    #  設定 vcode_reverse_lookup 
+    #      # 6  反查 顯示格式( 重要)
+    #
+patch:
+    #------------------ user define area  原來一般設定 可放置此區
+
+
+
+
+
+    #----------------- vcode setup -----------------
+    translator/dictionary: &dict    ##1 #  為了讓 vcode_lookup vcode_reserse_lookup 引用
+        cangjie5liu
+    translator/preedit_format: &fmt  ##2  #目的同上  copy from schema  增加 ?|？ 
+        - "xlit|dmatwfyzljxiekbhsocrugqnpv~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|"
+        - "xlit|?|？|"  # ? --> ？　
+
+    recognizer/patterns/vcode_lookup: "^.+[?]+$"    # 增加 vcode_lookup patterns
+    engine/filters/+:
+        - reverse_lookup_filter@vcode_reverse_lookup
+    engine/translators/+:
+        - table_translator@vcode_lookup
+    #vcode_lookup: {}
+    #vcode_reverse_lookup: {}
+# copy from schema 
+    #speller:
+      # 增加 查詢碼表 (prism)
+      #algebra:
+        #- derive/^([a-z]).([a-z])$/$1$2\?/      # 頭尾碼 + ?   
+        #- derive/^([a-z])..([a-z])$/$1$2\?\?/  # 頭尾碼 + ??   
+        #- derive/^([a-z])...([a-z])$/$1$2\?\?\?/   # 頭尾碼 + ???   
+      #alphabet: zyxwvutsrqponmlkjihgfedcba?  ##3 #  增加 ?
+      # (習慣在ascii-punct off 模式操作 punctuator / 將失效 可以再加上 "/" 可再觸發 punctuator功能  ) 
+      #alphabet: zyxwvutsrqponmlkjihgfedcba?/   #   exp
+      #delimiter: " "
+    
+    vcode_lookup:
+      closing_tips: "【蒼頡五】"   ##4 # 自行修改
+      comment_format: *fmt   #copy from schema  , 增加 ? | ？
+      dictionary: *dict
+      max_phrase_length: 1
+      preedit_format: *fmt
+      prism: *dict
+      tag: vcode_lookup
+      tips: "【查詢】"      ##5 # 自行修改
+    
+    vcode_reverse_lookup:
+      comment_format:    # 同 *fmt  加上 括號
+        - "xform/$/〕/"
+        - "xform/^/〔/"
+        - "xlit|dmatwfyzljxiekbhsocrugqnpv~?|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、？|" ##6
+      dictionary: *dict
+      overwrite_comment: true
+      tags:
+        - vcode_lookup

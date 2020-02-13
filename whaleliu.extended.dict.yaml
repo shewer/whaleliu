@@ -28,12 +28,12 @@ use_preset_vocabulary: true
 encoder:
   rules:
     - length_equal: 2
-      formula: AaAzBaBz
-    - length_equal: 3
-      formula: AaAzBaBzZa
-    - length_in_range: [4, 10]
-      formula: AaAzBaBzCaZa
-  tail_anchor: "''"
+      formula: AaAzBaBzBz
+    #- length_equal: 3
+      #formula: AaAzBaBzZa
+    - length_in_range: [3, 10]
+      formula: AaAzBaBzZz
+  tail_anchor: "'"
 ...
 
 

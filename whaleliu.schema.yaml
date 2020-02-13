@@ -1,319 +1,360 @@
 ---
 schema:
-  author:
-  - 蒼頡發明人 朱邦復先生
-  - 鯨魚輸入法 發明人 臺灣之子
+      author:
+          - 蒼頡發明人 朱邦復先生
+          - 鯨魚輸入法 發明人 臺灣之子
+      description: 
+          鯨魚舞倉頡輸入法
+          【鯨魚】輸入法 + 嘸蝦米 字根 
+          http://www.geocities.ws/mycj3/content.html
+          倉頡字母    倉    嘸
+          日（日）    A    D(Day)
+          月（月）    B    M( 英文moon )
+          金（金）    C    A( 蝦米根)
+          木（木）    D    T(tree)
+          水（水）    E    W(water)
+          火（火）    F    F(fire)
+          土（土）    G    Y
+          竹（斜）    H    Z
+          戈（點）    I    *L (重碼)
+          十（交）    J    J 
+          大（叉）    K    *X( 以叉 為字根) 
+          中（縱）    L    *I( 以緃為字根)
+          一（橫）    M    E
+          弓（勾）    N    *K(重碼 模糊音)
+          人（人）    O    B
+          心（心）    P    H
+          手（手）    Q    *S(重碼 模糊音)
+          口（口）    R    O
+          尸（側）    S    C
+          廿（并）    T    R
+          山（仰）    U    *U(重碼 倉頡字根)
+          女（紐）    V    G
+          田（方）    W    Q
+          難）糸      X    *N( 重碼  / 鯨魚輸入法 為"糸"
+          卜（卜)     Y    P
+          符  魚      Z    *V (重碼   / 鯨魚輸入法為 魚
+          虫      ,             ( 鯨魚輸入法)
+          羊      ;              (鯨魚輸入法)
+      name: 鯨魚舞倉頡
+      schema_id: whaleliu
+      version: "0.1.0.1"
 
-  dependencies:
-  #- xiapin
-  #- pinyin
-  #- liur
-  #- cangjie6liu
-  #- luna_pinyin
-
-  descqqqription: "鯨魚舞倉頡輸入法\n【鯨魚】輸入法 + 嘸蝦米 字根 \nhttp://www.geocities.ws/mycj3/content.html\n倉頡字母
-    \   倉    嘸\n日（日）    A    D(Day)\n月（月）    B    M( 英文moon )\n金（金）    C    A( 蝦米根)\n木（木）
-    \   D    T(tree)\n水（水）    E    W(water)\n火（火）    F    F(fire)\n土（土）    G    Y\n竹（斜）
-    \   H    Z\n戈（點）    I    *L (重碼)\n十（交）    J    J \n大（叉）    K    *X( 以叉 為字根) \n中（縱）
-    \   L    *I( 以緃為字根)\n一（橫）    M    E\n弓（勾）    N    *K(重碼 模糊音)\n人（人）    O    B\n心（心）
-    \   P    H\n手（手）    Q    *S(重碼 模糊音)\n口（口）    R    O\n尸（側）    S    C\n廿（并）    T
-    \   R\n山（仰）    U    *U(重碼 倉頡字根)\n女（紐）    V    G\n田（方）    W    Q\n難）糸      X    *N(
-    重碼  / 鯨魚輸入法 為\"糸\"\n卜（卜)     Y    P\n符  魚      Z    *V (重碼   / 鯨魚輸入法為 魚\n    虫
-    \     ,             ( 鯨魚輸入法)\n    羊      ;              (鯨魚輸入法)\n"
-  name: 鯨魚舞倉頡
-  schema_id: whaleliu
-  version: "0.1"
-abc_segmentor:
-  extra_tags:
-#  - reverse_lookup
-engine:
-  filters:
-  - simplifier
-  - uniquifier
-  - single_char_filter
-  - reverse_lookup_filter@pinyin_reverse_lookup
-  - reverse_lookup_filter@liur_reverse_lookup
-  - reverse_lookup_filter@cj6liu_reverse_lookup
-  - reverse_lookup_filter@vcode_reverse_lookup
-  processors:
-  - ascii_composer
-  - recognizer
-  - key_binder
-  - speller
-  - punctuator
-  - selector
-  - navigator
-  #- fluid_editor
-  #  結束暫存不上屏 
-  - express_editor
-  segmentors:
-  - ascii_segmentor
-  - matcher
-  - abc_segmentor
-  - affix_segmentor@pinyin
-  - affix_segmentor@liur
-  - affix_segmentor@cj6liu
-  - affix_segmentor@pinyin_lookup
-  - affix_segmentor@liur_lookup
-  - affix_segmentor@cj6liu_lookup
-  - affix_segmentor@vcode_lookup
-  - affix_segmentor@reverse_lookup
-  - punct_segmentor
-  - fallback_segmentor 
-  translators:
-  - punct_translator
-#  - reverse_lookup_translator
-  - table_translator
-  - script_translator@pinyin
-  - table_translator@liur
-  - table_translator@cj6liu
-  - script_translator@pinyin_lookup
-  - table_translator@liur_lookup
-  - table_translator@cj6liu_lookup
-  - table_translator@vcode_lookup
-  - lua_translator@date_translator
-key_binder:
-  import_preset: default
-  bindings:
-  - when: has_menu
-    accept: period
-    send: 3
-  - when: has_menu
-    accept: Tab
-    send: Page_Down
-  - when: has_menu
-    accept: Shift+Tab
-    send: Page_Up
-  - when: has_menu
-    accept: "-"
-    send: 2
-  - when: has_menu
-    accept: "="
-    send: Up
-  - when: has_menu
-    accept: "/"
-    send: Down
-
-punctuator:
-  import_preset: symbols
-
-recognizer:
-  import_preset: default
-  patterns:
-    punct: "^/([0-9]0?|[A-Za-z]+)$"
-    #pinyin: "(?<!`)P[a-z]*?$"
-    pinyin: "(?<!`)P[a-z]*?$"
-    #liur: "(?<!`)L[a-z]*?$"
-    liur: "^L[a-z',.;]*?$"
-    cj6liu: "(?<!`)C[a-z]*?$"
-    pinyin_lookup: "`P[a-z]*?$|[a-z]+P'$"
-    liur_lookup: "`L[a-z',.;]*'?$|[a-z',.;]+L'$"
-    cj6liu_lookup: "`C[a-z]*'?$|[a-z]+C'$"
-    vcode_lookup: "`V[a-z]*'?$|[a-z]+C'$"
-    reverse_lookup: "`[a-z]*'?$|[a-z]+'$"
-    lua: "``[a-z0-9/:]*'?$"
-
-translator:
-  dictionary: &dict 
-    whaleliu.extended
-  tips:  &ttips 
-    "【鯨舞倉】"
-  closing_tips: &ctips
-     "【鯨舞倉】"
+      # ---------------     
+      dependencies:
+          - luna_pinyin
+          - cangjie5liu
+            # ---------------     
+            #  - reverse_lookup
+            #
+speller:   # 
+  alphabet: abcdefghijklmnopqrstuvwxyz[];,. 
+  # 預設 ascii-punct off 符號鍵為半形上字 特將 [] / 納入才強制觸發 punct  / . , '/ ? 
+  #alphabet: abcdefghijklmnopqrstuvwxyz;,?
+  finals: CP
+  delimiter: " '"
+  #auto_select_pattern: "[a-z]+[CPL']"
+  algebra:
+      #  
+      - derive/^([a-z;,]).([a-z;,])$/$1$2\?/  # 取首尾二碼爲反查三碼字
+      - derive/^([a-z;,])..([a-z;,])$/$1$2\?\?/  # 取首尾二碼爲速成碼反查四碼字
+      - derive/^([a-z;,])...([a-z;,])$/$1$2\?\?\?/  # 取首尾二碼爲速成碼反查五碼字
+translator: &main_tran
+  #tag: main_tran
+  dictionary: &dict whaleliu
+  #prism: *dict
+  tips:  &dict_tips "【鯨舞倉】"
+  closing_tips: &dict_ctips "【鯨舞倉】"
   suffix: "'"
-  comment_format: &dict_fmt
-  #- xform/([a-z])/\1\U\1/
-  #- xlit|abcdefghijklmnopqrstuvwxyz[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  - xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  #disable_user_dict_for_patterns: 
+  preedit_format: &dict_pre_fmt
+      - derive/^(.+)$/\1(\U\1\)\E/
+      - &dict_pre_xlit xlit|DMATWFYZLJXIEKBHSOCRUGQNPV[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+  comment_format: &dict_comm_fmt
+      - xform/^(.+)$/ \1 /  
+      - &dict_comm_xlit xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+
+  max_phrase_length: 5
   enable_charset_filter: false
   enable_encoder: false
   enable_sentence: false
   enable_user_dict: false
-  preedit_format: *dict_fmt
-  #- derive/([a-z])/\1\U\1/
-  #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  #- xlit|abcdefghijklmnopqrstuvwxyz[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-#    - "xlit|abcdefghijklmnopqrstuvwxyz|dmatwfyzljxiekbhsocrugqnpv|"
-#  - xform/^([a-z]*)$/$1\t（\U$1\E）/
-#  - xlit|DMATWFYZLJXIEKBHSOCRUGQNPV[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-vcode_lookup:
-  tag: vcode_lookup 
-  dictionary: whaleliuvcode
-  prefix: "`V"
-  suffix: "'"
-  tips: 【鯨舞蒼-簡】
-  closing_tips: *ctips
-  prefix: *dict_fmt
-  comment_format: *dict_fmt 
+  enable_completion: true
+  #----------------------------------------------------      
 
-vcode_reverse_lookup:
-  tags: [ vcode_lookup ]
-  dictionary: *dict 
-  comment_format: &rcomment    
-    - xform/$/〕/
-    - xform/^/〔/
-    - xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  overwrite_comment: true  # 覆蓋其他提示
-  #preedit_format: *liur_comment
-
-      
-
-pinyin:
-  tag: pinyin
-  dictionary: &pinyin_dict
-    luna_pinyin
-  prefix: P
-# 漢語拼音輸入以〔大寫〕「P」引導
-  suffix: &suffix_char
-    "'"
-      #*suufix_char
-  preedit_format: &pinyin_preedit
-    - xform/([nl])v/$1ü/
-    - xform/([nl])ue/$1üe/
-    - xform/([jqxy])v/$1u/
-  tips: 【漢拼】
-  closing_tips: *ctips 
-  initial_quality: 0.2	# 調整該編譯器出字優先度
-
-
-pinyin_lookup:
-  tag: pinyin_lookup
-  dictionary: *pinyin_dict 
-  preedit_format: *pinyin_preedit
-  comment_format: *rcomment
-    #- xform/$/〕/
-    #- xform/^/〔/
-    #- xform/([a-z]/\1\U\1/)
-    #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  prefix: "`P"
-# 獨用漢語拼音反查在反查鍵「`」之後再鍵入〔大寫〕「P」
-  suffix: *suffix_char 
-  preedit_format: &pinyan_preedit 
-  tips: 【漢拼反查】
-  closing_tips: &ctips 
-pinyin_reverse_lookup:
-  tags: [ pinyin_lookup ]
-  dictionary: *dict
-  overwrite_comment: true  # 覆蓋其他提示
-  comment_format: *rcomment 
-  #preedit_format: *pinyin_preedit
-liur:
-  tag: liur
-  dictionary: &liur_dict
-    liur.extended
-  prefix: "L"
-# 漢語拼音輸入以〔大寫〕「P」引導
-  suffix: *suffix_char
-  preedit_format: &liur_comment
-    - xlit|abcdefghijklmnopqrstuvwxyz|ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ|
-  comment_format: *liur_comment
-    #- xlit|abcdefghijklmnopqrstuvwxyz|ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ|
-  tips: 【liur】
-  closing_tips: *ctips
-  initial_quality: 0.2	# 調整該編譯器出字優先度
-
-liur_lookup:
-  tag: liur_lookup
-  dictionary: *liur_dict
-  prefix: "`L" 
-  suffix: *suffix_char
-  tips: 【liur反查】
-  closing_tips: *ctips 
-  preedit_format: *liur_comment
-  #comment_format:      #*rcomment 
-    #- xform/$/〕/
-    #- xform/^/〔/
-    #- xform/([a-z]/\1\U\1/)
-    #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-liur_reverse_lookup:
-  tags: [ liur_lookup ]
-  dictionary: *dict 
-  comment_format: *rcomment    
-    #- xform/$/〕/
-    #- xform/^/〔/
-    #- xlit|dmatwfyzljxiekbhsocrugqnpv[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
-  overwrite_comment: true  # 覆蓋其他提示
-  #preedit_format: *liur_comment
-
-cj6liu:
-  tag: cj6liu
-  dictionary: &cj6liu_dict
-    cangjie6liu.extended
-  prefix: C
-# 漢語拼音輸入以〔大寫〕「P」引導
-  suffix: *suffix_char
-  preedit_format: &cj6_comment
-    - xlit|dmatwfyzljxiekbhsocrugqnpv |日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|
-  comment_format: *cj6_comment
-  tips: 【舞頡】
-  closing_tips: *ctips 
-  initial_quality: 0.2	# 調整該編譯器出字優先度
-
-
-  
-cj6liu_lookup: 
-  tag: cj6liu_lookup
-  dictionary: *cj6liu_dict
-  preedit_format: *cj6_comment
-    #- xlit|dmatwfyzljxiekbhsocrugqnpv|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|
-  comment_format: *rcomment
-  prefix: "`C" 
-  suffix: *suffix_char 
-  tips: 【cj6反查】
-  closing_tips: *ctips  
-  
-cj6liu_reverse_lookup:
-  tags: [ cj6liu_lookup ]
-  dictionary: *dict 
-  overwrite_comment: true  # 覆蓋其他提示
-  comment_format: *rcomment
-  #preedit_format: *cj6_comment
-  
-
-reverse_lookup:
-  tag: reverse_lookup
-  #dictionary: whaleliu
+  # 所有副字典 反查 （笫一層） 分發至指定副字典（extra_tags) 
+lookup:
+  tag: lookup
+  extra_tags: [ pinyin ,vcode,cangjie5liu ]
   prefix: "`"
-  suffix: *suffix_char
-  tips: 【反查】
-  closing_tips: *ctips
+  tips: "[反查]"
+
+vcode:
+  tag: vcode
+  prefix: "`V"
+  dictionary: &vdict
+    whaleliu
+  prism: *vdict
+  tips: *dict_tips
+  preedit_format: &vdict_pre_fmt
+      - derive/^(.+)$/\1(\U\1\)\Evcode/
+      - xform/\((.)(.)(.+)\)/(\1\3\2)/
+      - *dict_pre_xlit 
+      #-  xlit|DMATWFYZLJXIEKBHSOCRUGQNPV[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+  comment_format: *dict_comm_fmt
+
+reverse_lookup:    # reverse_lookup   filter 
+    tags: [  vcode, lookup,pinyin, cangjie5liu ]
+    tag: reverse_lookupa
+    dictionary: *dict 
+    overwrite_comment: true # 覆蓋其他提示
+    comment_format: #*rcomment
+      - xlit|?~|？~|  
+      - xform/^(.+)$/〔\1〕-/
+      - *dict_comm_xlit
+    # 
+
+
+
+pinyin: &pinyin
+    tag: pinyin
+    dictionary: &pinyin_dict
+        luna_pinyin
+    tips: &pinyin_tips
+    "[拼音]"
+    closing_tips: &pinyin_ctips
+    "[拼音]"
+    prefix: "`P"
+    preedit_format: &pinyin_pre_fmt
+      - "xform/([nl])v/$1ü/"
+      - "xform/([nl])ue/$1üe/"
+      - "xform/([jqxy])v/$1u/"
+      - xform/$/(拼)
+    comment_format: &pinyin_comm_fmt
+      - xform/^(.*)$/［\1］拼/
+        # 反查拼音    
+
+lookup_pinyin:
+    tag: lookup_pinyin
+    extra_tags: [vcode]
+    prefix: "P"
+    #suffix: "P"
+    tips: "[反查拼音]"
+    closing_tips: "[反查拼音]"
+    preedit_format: *dict_pre_fmt
+lookup_pinyin1:
+    tag: lookup_pinyin1
+    extra_tags: [vcode]
+    #prefix: "P"
+    suffix: "P"
+    tips: "[反查拼音]"
+    closing_tips: "[反查拼音]"
+    preedit_format: *dict_pre_fmt
+
+reverse_lookup_pinyin:
+    tags: [ lookup_pinyin ,lookup_pinyin1 ]
+    dictionary: *pinyin_dict
+    overwrite_comment: true 
+    comment_format: *pinyin_comm_fmt
+
+#-s---------------- cangjie5liu
+cangjie5liu: &cj5liu
+    tag: cangjie5liu
+    dictionary: &cj5liu_dict
+         cangjie5liu
+    tips: &cj5liu_tips
+    "[倉五查]"
+    closing_tips: &cj5liu_ctips
+    "[倉五查]"
+    prefix: "`C"
+    preedit_format: &cj5liu_pre_fmt
+      - derive/^(.+)$/\1(\U\1\)\E/
+      - xform/\((.)(.)(.+)\)/(\1\3\2)/
+      - &cj5liu_pre_xlit "xlit|DMATWFYZLJXIEKBHSOCRUGQNPV|日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜符|"
+    comment_format: &cj5liu_comm_fmt
+        - &cj5liu_comm_xlit "xlit|dmatwfyzljxiekbhsocrugqnpv~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜符～|"
+        - xform/^(.*)$/［\1］倉/
+    disable_user_dict_for_patterns:
+        - "^z.*$"
+        - "^yyy.*$"
+        # 反查拼音    
+
+lookup_cangjie5liu:
+    tag: lookup_cangjie5liu
+    extra_tags: [vcode]
+    prefix: "C"
+    suffix: "C"
+    tips: "[反查倉五]"
+    closing_tips: "[反查倉五]"
+    preedit_format: *dict_pre_fmt
+
+reverse_lookup_cangjie5liu:
+    tags: [ lookup_cangjie5liu ]
+    dictionary: *cj5liu_dict
+    overwrite_comment: true 
+    comment_format: *cj5liu_comm_fmt
+
+  #----------------------------------------------------      
+abc_segmentor:
   extra_tags:
-    - vcode_lookup 
-    - pinyin_lookup
-    - liur_lookup
-    - cj6liu_lookup     
+recognizer:
+  import_preset: default
+  patterns:
+      #pinyin: "^P[a-z]*'?$"
+      lookup: "`[a-z,;?]*'?$|[a-z,;?]+`$"  # 第一級
+      vcode:  "`V[a-z,;?]*'?$|^[a-z,;]{2}[?]+$"
+      pinyin: "`P[a-z   ]*'?$" #第二級
+      lookup_pinyin: "^P[a-z;,?]*'?$"
+      lookup_pinyin1: "^[a-z;,?]+P$"
+      cangjie5liu: "`C[a-z;,?]*'?$" #第二級
+      lookup_cangjie5liu: "^C[a-z;,?]*'?$|^[a-z;,?]+C'?$"
+  #      主字典反查 副字典
 
+engine:
+  filters:   
+      - single_char_filter
+      - simplifier
+      - uniquifier
+      - reverse_lookup_filter@reverse_lookup  #  轉 主字典碼以 tags 選
+      - reverse_lookup_filter@reverse_lookup_pinyin  #  轉 主字典碼以 tags 選
+      - reverse_lookup_filter@reverse_lookup_pinyin1 #  轉 主字典碼以 tags 選
+      - reverse_lookup_filter@reverse_lookup_cangjie5liu  #  轉 主字典碼以 tags 選
+  processors:
+      - ascii_composer
+      - recognizer
+      - key_binder
+      - speller
+      - punctuator
+      - selector
+      - navigator
+      - express_editor
+  segmentors:
+      - ascii_segmentor
+      - matcher
+      - abc_segmentor
+      - affix_segmentor@vcode # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@lookup # 1 tag -extrato-> pinyin_lookup .....
 
+      - affix_segmentor@pinyin # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@lookup_pinyin # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@lookup_pinyin1 # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@reverse_lookup_pinyin # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@cangjie5liu # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@lookup_cangjie5liu # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@reverse_lookup_cangjie5liu # 1 tag -extrato-> pinyin_lookup .....
+      - punct_segmentor
+      - fallback_segment 
+  translators:
+      - punct_translator
+      - table_translator
+      - table_translator@vcode
+      - script_translator@pinyin
+      - table_translator@cangjie5liu
+
+key_binder:
+  import_preset: default
+punctuator:
+  import_preset: symbols
 simplifier:
   tips: all
-speller:
-  alphabet: abcdefghijklmnopqrstuvwxyz[];,.'
-  delimiter: " '"
-  #auto_select_pattern: "[a-z]+[CPL']"
-  algebra:
-    #- "xlit|abcdefghijklmnopqrstuvwxyz|dmatwfyzljxiekbhsocrugqnpv|"
+
+
+
 switches:
-- name: ascii_mode
-  reset: 0
-  states:
-  - 中文
-  - 西文
-- name: full_shape
-  reset: 0
-  states:
-  - 半角
-  - 全角
-- name: simplification
-  states:
-  - 漢字
-  - 汉字
-- name: extended_charset
-  states:
-  - 常用
-  - 增廣
-- name: ascii_punct
-  states:
-  - "。，"
-  - "．，"
+  - { name: ascii_mode, states: [ 中文 , 西文 ] }
+  - { name: full_shape, states: [ 半角 , 全角] } 
+  - { name: simplification, states: [ 漢字 ,  汉字 ] }
+  - { name: extended_charset, states: [ 常用 , 增廣] }
+  - { name: ascii_punct, states:  [  "。，" , "．，" ] }
+
+
+
+#pinyin_lookup:  # 副字典 反查 正字典碼
+    #tag: pinyin_lookup
+    #extra_tags: [pinyin]  #轉發 pinyan 
+    #prefix: '`P'
+    #tips: "[拼音反查]"
+    #closing_tips: "[拼音反查]"
+    #dictionary:  *dPict
+    #preedit_format: *dict_pre_fmt
+    #comment_format: *dict_comm_fmt 
+
+      #- translator    # 跳入 pinyin 輸入法
+      #extra_tags: 
+      #- main_tran
+      # 反查拼音
+#lookup_pinyin:
+    #tag: lookup_pinyin
+    #extra_tags: [ vcode ]
+    #prefix: "P"
+    #tips: "[拼音反查]"
+    #closing_tips: "[拼音反查]"
+
+
+
+
+
+
+
+#reverse_lookup_pinyin:
+    #tags: [ lookup_pinyin ]
+    ##*main_tran # 引入主字典
+    #dictionary: *pinyin_dict 
+    #tips:  *pinyin_tips 
+    #closing_tips: *pinyin_ctips
+    #overwrite_comment: true
+    #comment_format:  *pinyin_comm_fmt
+
+
+      # 反查拼音    
+      #bopomo_lookup:
+      #tag: bopomo_lookup
+      #tips: "[反查拼音]"
+      #closing_tips: "[反查拼音]"
+      #prefix: "PA"
+      ##suffix: 'P'
+      ##dictionary: luna_pinyin
+      #dictionary: whaleliu
+      #preedit_format: *dict_pre_fmt
+      #comment_format: *dict_comm_fmt 
+
+
+      #bopomo_reverse_lookup:
+      ##tags: [ bopomo_lookup ]
+      ##dictionary: luna_pinyin
+      #dictionary: bopomofo_hsuq
+      #prism: bopomofo_hsuq
+      #enable_completion: true
+      #prefix: "PA"
+      #suffix: "'"
+      #tips: 〔拼音〕
+      #overwrite_comment: true
+      #preedit_format:
+      #- "xlit|abcdefghijklmnopqrstuvwxyz|"
+      #comment_format:
+      #- xform/^r5$/er5/
+      #- xform/^([jqx])y?u/$1v/
+      #- xform/^y/i/
+      #- xform/^w/u/
+      #- xform/iu/iou/
+      #- xform/ui/uei/
+      #- xform/ong/ung/
+      #- xform/([iu])n/$1en/
+      #- xform/zh/Z/
+      #- xform/ch/C/
+      #- xform/sh/S/
+      #- xform/ai/A/
+      #- xform/ei/I/
+      #- xform/ao/O/
+      #- xform/ou/U/
+      #- xform/ang/K/
+      #- xform/eng/G/
+      #- xform/an/M/
+      #- xform/en/N/
+      #- xform/er/R/
+      #- xform/eh/E/
+      #- xform/([iv])e/$1E/
+      #- xform/1/ˉ/
+      #- 'xlit|bpmfdtnlgkhjqxZCSrzcsiuvaoeEAIOUMNKGR2345|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˊˇˋ˙|'
+
+
+
