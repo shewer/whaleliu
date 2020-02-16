@@ -1,0 +1,48 @@
+# encoding: utf-8
+#
+# 單字碼表《五倉世紀》來自 www.chinesecj.com
+#
+# 又：
+# 倉頡五代構詞碼碼表
+# 由惜緣兄製作
+# 佛振修訂於 2012-04-08
+#
+# License: GPL
+# encoding: utf-8
+#
+# 單字碼表《五倉世紀》來自 www.chinesecj.com
+#
+# 又：
+# 倉頡五代構詞碼碼表
+# 由惜緣兄製作
+# 佛振修訂於 2012-04-08
+#
+# License: GPL
+#
+# 說明：
+# 詞彙編碼中，單字的取碼有幾種情況：
+# 取首碼、取尾碼、取首尾二碼、取首、次、尾三碼。
+# 輔助字形中的單字，在詞彙中直接用倉頡字母而不拆開；
+# 包含結構的單字，被包含部分的編碼位於'符號之後，可據此取得尾碼。
+#
+# encoding: utf-8
+#
+---
+name: cangjie5liu.extended 
+version: "1"
+sort: by_weight 
+
+import_tables:
+   - cangjie5liu
+use_preset_vocabulary: true   
+#min_phrase_weight: 50
+encoder:
+  rules:
+    - length_equal: 2
+      formula: AaAzBaBzBz
+    #- length_equal: 3
+      #formula: AaAzBaBzZa
+    - length_in_range: [3, 10]
+      formula: AaAzBaBzZz
+  tail_anchor: "'"
+...

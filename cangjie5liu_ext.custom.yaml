@@ -1,0 +1,19 @@
+# 快速設定 自查碼的功能，且不影響 schema 整體
+#
+
+
+
+
+patch:
+  translator/enable_charset_filter: false
+  translator/enable_encoder: false
+  translator/enable_sentence: false
+  translator/enable_user_dict: false
+  translator/enable_completion: true
+    #------------------ user define area  原來一般設定 可放置此區
+
+
+
+
+
+    #----------------- vcode setup -----------------
