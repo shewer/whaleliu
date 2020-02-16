@@ -1,0 +1,400 @@
+# 增加 5個 dvorak 鍵盤
+# dvorak 4* 12
+# dvorake2 4*11 英文
+# dvorakl2 4 * 11 舞倉
+# dvorake 4*10 英文
+# dvorakl 4 * 10 舞倉
+# space swipe-up  4*10 4*11 swap
+# space swipe-left swipe-right  dvorak(e/l) swap
+# all keypad : swipe-up  upcase
+#
+customization:
+  distribution_code_name: ""
+  distribution_version: ""
+  generator: "Rime-JNI"
+  modified_time: "Thu Jan  3 17:20:42 2019"
+  rime_version: 1.2.9
+patch:
+  "style/color_scheme": default
+  "style/keyboards":
+        - .default
+        - default
+        - number
+        - symbols
+        - dvorakl
+        - dvorake
+        - dvorakl2
+        - dvorake2
+          
+  "preset_keyboards/cangjie5liu":
+    import_preset: dvorake2
+  "preset_keyboards/cangjie6liu":
+    import_preset: dvorake2
+  "preset_keyboards/whaleliu":
+    import_preset: dvorakl2
+  "preset_keyboards/whaleliu_ext":
+    import_preset: dvorakl2
+  "preset_keys/Keyboard_dvorakl":
+          label: "中"
+          send: Eisu_toggle
+          select: dvorakl
+  "preset_keys/Keyboard_dvorake":
+          label: "英"
+          send: Eisu_toggle
+          select: dvorake
+  "preset_keys/Keyboard_dvorakl2":
+          label: "中"
+          send: Eisu_toggle
+          select: dvorakl2
+  "preset_keys/Keyboard_dvorake2":
+          label: "英"
+          send: Eisu_toggle
+          select: dvorake2
+
+  "preset_keyboards/dvorak":
+    name: 預設40鍵
+    author: "osfans <waxaca@163.com>"
+    ascii_mode: 0
+    width: 8.33
+    height: 40
+    lock: true #切換程序時記憶鍵盤
+    keys:
+    - {click: '1', long_click: '!'}
+    - {click: '2', long_click: '@'}
+    - {click: '3', long_click: '#'}
+    - {click: '4', long_click: '$'}
+    - {click: '5', long_click: '%'}
+    - {click: '6', long_click: '^'}
+    - {click: '7', long_click: '&'}
+    - {click: '8', long_click: '*'}
+    - {click: '9', long_click: '('}
+    - {click: '0', long_click: ')'}
+    - {click: '[', long_click: '{'}
+    - {click: ']', long_click: '}'}
+    
+    - {click: "'", long_click: '"'}
+    - {click: ',', long_click: '<'}    
+    - {click: '.', long_click: '>'}
+    - {click: 'p' } 
+    - {click: 'y' }
+    - {click: 'f' }
+    - {click: 'g'}
+    - {click: 'c'}
+    - {click: 'r'}
+    - {click: 'l'}
+    - {click: '/', long_click: '?'}
+    - {click: '=', long_click: '+'}
+    
+    - {click: Tab}  
+    - {click: 'a', long_click: select_all }
+    - {click: 'u', long_click: Page_Up}
+    - {click: 'o', long_click: Home}
+    - {click: 'e', long_click: End}
+    - {click: 'i', long_click: Page_Down}
+    - {click: 'd', long_click: Left}
+    - {click: 'h', long_click: Down}
+    - {click: 't', long_click: Up}
+    - {click: 'n', long_click: Right}
+    - {click: 's', long_click: ':'}
+    - {click: '-', long_click: '_'}
+    
+    - {click: Shift_L, label: "⇧"} 
+    - {click: ';', long_click: ":"}    
+    - {click: 'q', long_click: cut}
+    - {click: 'j', long_click: copy}
+    - {click: 'k', long_click: paste}
+    - {click: 'x', long_click: '~'}
+    - {click: 'b', long_click: Insert}
+    - {click: 'm', long_click: Delete}
+    - {click: 'w' }
+    - {click: 'v' }
+    - {click: 'z' }
+    - {click: Shift_L, label: "⇧"}
+    - {click: Keyboard_symbols, long_click: Keyboard_number,width: 12}  
+    - {click: Mode_switch, long_click: Menu,width: 12}
+    - {click: space, width: 40,preview: "_",long_click: Escape}
+    - {click: "`", long_click: '~'}
+    - {click: BackSpace, width: 12}
+    - {click: Return, long_click: CommitComment, width: 15}
+
+  "preset_keyboards/dvorakl":
+    name: 預設44鍵
+    author: "shewer <shewer@gmail.com>"
+    ascii_mode: 0
+    width: 9 #8.33
+    height: 40
+    round_corner: 30
+    lock: true #切換程序時記憶鍵盤
+    keys:
+    - {click: '1', swipe_up: ".", long_click: '!'}
+    - {click: '2', swipe_up: "+", long_click: '@'}
+    - {click: '3', swipe_up: "-", long_click: '#'}
+    - {click: '4', swipe_up: "*", long_click: '$'}
+    - {click: '5', swipe_up: "/", long_click: '%'}
+    - {click: '6', swipe_up: "=", long_click: '^'}
+    - {click: '7', swipe_up: "{}{Left}", long_click: '&'}
+    - {click: '8', swipe_up: "}", long_click: '*'}
+    - {click: '9', swipe_up: "[]{Left}", long_click: "(){Left}",has_menu: Page_Up}
+    - {click: '0', swipe_up: "]", long_click: ')',has_menu: Page_Down}
+    - {click: BackSpace }
+    #- {click: '[', long_click: '{'}
+    #- {click: ']', long_click: '}'}
+    - {click: "?", long_click: "/"}  
+    - {click: "'", long_click: '"'}    
+    - {click: ".", long_click: '<'}
+    - {click: ",", label: "羊", long_click: '>', swipe_up: ""}
+    - {click: 'p', label: "卜", long_click: "", swipe_up: "P"} 
+    - {click: 'y', label: "土", long_click: "", swipe_up: "Y" }
+    - {click: 'f', label: "火", long_click: "", swipe_up: "F" }
+    - {click: 'g', label: "女", long_click: "", swipe_up: "G" }
+    - {click: 'c', label: "尸", long_click: "", swipe_up: "C" }
+    - {click: 'r', label: "廿", long_click: "", swipe_up: "R" }
+    - {click: 'l', label: "戈", long_click: "", swipe_up: "L" }
+    #- {click: '/', long_click: '?'}
+    #- {click: '=', long_click: '+'}
+    #
+    - {click: Tab, swap_up: Shift+Tab}
+    - {click: 'a', label: "金", swipe_up: "A", long_click: select_all }
+    - {click: 'o', label: "口", swipe_up: "O", long_click: Home}
+    - {click: 'e', label: "一", swipe_up: "E", long_click: End}
+    - {click: 'u', label: "山", swipe_up: "U", long_click: Page_Up}
+    - {click: 'i', label: "中", swipe_up: "I", long_click: Page_Down}
+    - {click: 'd', label: "日", swipe_up: "D", long_click: Left}
+    - {click: 'h', label: "心", swipe_up: "H", long_click: Down}
+    - {click: 't', label: "木", swipe_up: "T", long_click: Up}
+    - {click: 'n', label: "糸", swipe_up: "N", long_click: Right}
+    - {click: 's', label: "手", swipe_up: "S", long_click: ':'}
+    #- {click: '-',swipe_up: "",  long_click: '_'}
+    #    
+    - {click: Shift_L, label: "⇧"}
+    - {click: ';', label: "虫", swipe_up: ":", long_click: ":"}    
+    - {click: 'q', label: "田", swipe_up: "Q", long_click: cut}
+    - {click: 'j', label: "十", swipe_up: "J", long_click: copy}
+    - {click: 'k', label: "弓", swipe_up: "K", long_click: paste}
+    - {click: 'x', label: "大", swipe_up: "X", long_click: '~'}
+    - {click: 'b', label: "人", swipe_up: "B", long_click: Insert}
+    - {click: 'm', label: "月", swipe_up: "M", long_click: Delete}
+    - {click: 'w', label: "水", swipe_up: "W", }
+    - {click: 'v', label: "魚", swipe_up: "V", }
+    - {click: 'z', label: "竹", swipe_up: "Z", }
+    #- {click: Shift, "}
+    #    #
+    - {click: Mode_switch, long_click: Menu,width: 12}
+    - {click: Keyboard_symbols, long_click: Keyboard_number, width: 12}  
+    - {click: BackSpace, long_click: Keyboard_dvorake, width: 12}
+    - {click: space, width: 40,preview: "_",long_click: Escape,swipe_left: Keyboard_dvorakl, swipe_right: Keyboard_dvorake,swipe_up: Keyboard_dvorakl2}
+    - {click: "`", long_click: '~'}
+    - {click: Return, long_click: CommitComment, width: 15}
+  "preset_keyboards/dvorake":
+    name: 預設44鍵
+    author: "shewer <shewer@gmail.com>"
+    ascii_mode: 0
+    width: 9 #8.33
+    round_corner: 30
+    height: 40
+    lock: true #切換程序時記憶鍵盤
+    keys:
+    - {click: '1', swipe_up: ".", long_click: '!'}
+    - {click: '2', swipe_up: "+", long_click: '@'}
+    - {click: '3', swipe_up: "-", long_click: '#'}
+    - {click: '4', swipe_up: "*", long_click: '$'}
+    - {click: '5', swipe_up: "/", long_click: '%'}
+    - {click: '6', swipe_up: "=", long_click: '^'}
+    - {click: '7', swipe_up: "{}{Left}", long_click: '&'}
+    - {click: '8', swipe_up: "}", long_click: '*'}
+    - {click: '9', swipe_up: "[]{Left}", long_click: "(){Left}",has_menu: Page_Up}
+    - {click: '0', swipe_up: "]", long_click: ')',has_menu: Page_Down}
+    - {click: BackSpace }
+    #- {click: '[', long_click: '{'}
+    #- {click: ']', long_click: '}'}
+    - {click: "?", long_click: "/"}  
+    - {click: "'", long_click: '"'}    
+    - {click: ".", long_click: '<'}
+    - {click: ",", label: "，", long_click: '>', swipe_up: ""}
+    - {click: 'p', label: "ｐ", long_click: "", swipe_up: "P"} 
+    - {click: 'y', label: "ｙ", long_click: "", swipe_up: "Y" }
+    - {click: 'f', label: "ｆ", long_click: "", swipe_up: "F" }
+    - {click: 'g', label: "ｇ", long_click: "", swipe_up: "G" }
+    - {click: 'c', label: "ｃ", long_click: "", swipe_up: "C" }
+    - {click: 'r', label: "ｒ", long_click: "", swipe_up: "R" }
+    - {click: 'l', label: "ｌ", long_click: "", swipe_up: "L" }
+    #- {click: '/', long_click: '?'}
+    #- {click: '=', long_click: '+'}
+    #
+    - {click: Tab, swap_up: Shift+Tab}
+    - {click: 'a', label: "ａ", swipe_up: "A", long_click: select_all }
+    - {click: 'o', label: "ｏ", swipe_up: "O", long_click: Home}
+    - {click: 'e', label: "ｅ", swipe_up: "E", long_click: End}
+    - {click: 'u', label: "ｕ", swipe_up: "U", long_click: Page_Up}
+    - {click: 'i', label: "ｉ", swipe_up: "I", long_click: Page_Down}
+    - {click: 'd', label: "ｄ", swipe_up: "D", long_click: Left}
+    - {click: 'h', label: "ｈ", swipe_up: "H", long_click: Down, }
+    - {click: 't', label: "ｔ", swipe_up: "T", long_click: Up}
+    - {click: 'n', label: "ｎ", swipe_up: "N", long_click: Right}
+    - {click: 's', label: "ｓ", swipe_up: "S", long_click: ':'}
+    #- {click: '-',swipe_up: "",  long_click: '_'}
+    #    
+    - {click: Shift_L, label: "⇧"}
+    - {click: ';', label: "；", swipe_up: ":", long_click: ":"}    
+    - {click: 'q', label: "ｑ", swipe_up: "Q", long_click: cut}
+    - {click: 'j', label: "ｊ", swipe_up: "J", long_click: copy}
+    - {click: 'k', label: "ｋ", swipe_up: "K", long_click: paste}
+    - {click: 'x', label: "ｘ", swipe_up: "X", long_click: '~'}
+    - {click: 'b', label: "ｂ", swipe_up: "B", long_click: Insert}
+    - {click: 'm', label: "ｍ", swipe_up: "M", long_click: Delete}
+    - {click: 'w', label: "ｗ", swipe_up: "W", }
+    - {click: 'v', label: "ｖ", swipe_up: "V", }
+    - {click: 'z', label: "ｚ", swipe_up: "Z", }
+    #- {click: Shift, "}
+    #    #
+    - {click: Mode_switch, long_click: Menu,width: 12}
+    - {click: Keyboard_symbols, long_click: Keyboard_number, width: 12}  
+    - {click: BackSpace, long_click: Keyboard_dvorakl, width: 12}
+    - {click: space, width: 40,preview: "_",long_click: Escape,swipe_left: Keyboard_dvorakl, swipe_right: Keyboard_dvorake, swipe_up: Keyboard_dvorake2}
+    - {click: "`", long_click: '~'}
+    - {click: Return, long_click: CommitComment, width: 15}
+  "preset_keyboards/dvorake2":
+    name: 預設40鍵
+    author: "shewer <shewer@gmail.com>"
+    ascii_mode: 0
+    width: 10 #8.33
+    round_corner: 30
+    height: 40
+    lock: true #切換程序時記憶鍵盤
+    keys:
+    - {click: '1', swipe_up: ".", long_click: '!',height: 40}
+    - {click: '2', swipe_up: "+", long_click: '@'}
+    - {click: '3', swipe_up: "-", long_click: '#'}
+    - {click: '4', swipe_up: "*", long_click: '$'}
+    - {click: '5', swipe_up: "/", long_click: '%'}
+    - {click: '6', swipe_up: "=", long_click: '^'}
+    - {click: '7', swipe_up: "{}{Left}", long_click: '&'}
+    - {click: '8', swipe_up: "}", long_click: '*'}
+    - {click: '9', swipe_up: "[]{Left}", long_click: "(){Left}",has_menu: Page_Up}
+    - {click: '0', swipe_up: "]", long_click: ')',has_menu: Page_Down}
+    #- {click: '[', long_click: '{'}
+    #- {click: ']', long_click: '}'}
+    #- {click: "?", long_click: "/"}  
+    #- {click: "'", long_click: '"'}    
+    #- {click: ".", long_click: '<'}
+    - {width: 5 }
+    - {click: ",", label: "，", long_click: '>',preview: "羊", swipe_up: ""}
+    - {click: 'p', label: "ｐ", long_click: "", preview: "卜",swipe_up: "P"} 
+    - {click: 'y', label: "ｙ", long_click: "", preview: "土",swipe_up: "Y" }
+    - {click: 'f', label: "ｆ", long_click: "", preview: "火",swipe_up: "F" }
+    - {click: 'g', label: "ｇ", long_click: "", preview: "女",swipe_up: "G" }
+    - {click: 'c', label: "ｃ", long_click: "", preview: "尸",swipe_up: "C" }
+    - {click: 'r', label: "ｒ", long_click: "_",preview: "廿", swipe_up: "R" }
+    - {click: 'l', label: "ｌ", long_click: "-",preview: "戈", swipe_up: "L" }
+    - {click: BackSpace,width: 15 }
+    #- {click: '/', long_click: '?'}
+    #- {click: '=', long_click: '+'}
+    #
+    #- {click: Tab, swap_up: Shift+Tab}
+    - {click: 'a', label: "ａ", swipe_up: "A", preview: "金", long_click: select_all }
+    - {click: 'o', label: "ｏ", swipe_up: "O", preview: "口", long_click: Home}
+    - {click: 'e', label: "ｅ", swipe_up: "E", preview: "一", long_click: End}
+    - {click: 'u', label: "ｕ", swipe_up: "U", preview: "山", long_click: Page_Up}
+    - {click: 'i', label: "ｉ", swipe_up: "I", preview: "中", long_click: Page_Down}
+    - {click: 'd', label: "ｄ", swipe_up: "D", preview: "日", long_click: Left}
+    - {click: 'h', label: "ｈ", swipe_up: "H", preview: "心", long_click: Down, }
+    - {click: 't', label: "ｔ", swipe_up: "T", preview: "木", long_click: Up}
+    - {click: 'n', label: "ｎ", swipe_up: "N", preview: "糸", long_click: Right}
+    - {click: 's', label: "ｓ", swipe_up: "S", preview: "手", long_click: ':'}
+    #- {click: '-',swipe_up: "",  long_click: '_'}
+    #    
+    #- {click: Shift_L, label: "⇧"}
+    - {click: ';', label: "；", swipe_up: ":", preview: "虫", long_click: ":"}    
+    - {click: 'q', label: "ｑ", swipe_up: "Q", preview: "田", long_click: cut}
+    - {click: 'j', label: "ｊ", swipe_up: "J", preview: "十", long_click: copy}
+    - {click: 'k', label: "ｋ", swipe_up: "K", preview: "弓", long_click: paste}
+    - {click: 'x', label: "ｘ", swipe_up: "X", preview: "大", long_click: '~'}
+    - {click: 'b', label: "ｂ", swipe_up: "B", preview: "人", long_click: Insert}
+    - {click: 'm', label: "ｍ", swipe_up: "M", preview: "月", long_click: Delete}
+    - {click: 'w', label: "ｗ", swipe_up: "W", preview: "水", }
+    - {click: 'v', label: "ｖ", swipe_up: "V", preview: "鱼", }
+    - {click: 'z', label: "ｚ", swipe_up: "Z", preview: "竹", }
+    #- {click: Shift, "}
+    #    #
+    - {click: Mode_switch, long_click: Menu,width: 10,height: 50}
+    - {click: Keyboard_symbols, long_click: Keyboard_number, width: 10}  
+    - {click: "?", long_click: "@" , width: 10}
+
+    #- {click: '=', long_click: '+'}
+    - {click: space, width: 35,preview: "_",long_click: Escape,swipe_left: Keyboard_dvorakl2, swipe_right: Keyboard_dvorake2, swipe_up: Keyboard_dvorake}
+
+    - {click: '/', long_click: '.'}
+    - {click: "`", long_click: '~'}
+    - {click: Return, long_click: CommitComment, width: 15}
+  "preset_keyboards/dvorakl2":
+    name: 預設40鍵
+    author: "shewer <shewer@gmail.com>"
+    ascii_mode: 0
+    width: 10 #8.33
+    round_corner: 30
+    height: 40
+    lock: true #切換程序時記憶鍵盤
+    keys:
+    - {click: '1', swipe_up: ".", long_click: '!',height: 40}
+    - {click: '2', swipe_up: "+", long_click: '@'}
+    - {click: '3', swipe_up: "-", long_click: '#'}
+    - {click: '4', swipe_up: "*", long_click: '$'}
+    - {click: '5', swipe_up: "/", long_click: '%'}
+    - {click: '6', swipe_up: "=", long_click: '^'}
+    - {click: '7', swipe_up: "{}{Left}", long_click: '&'}
+    - {click: '8', swipe_up: "}", long_click: '*'}
+    - {click: '9', swipe_up: "[]{Left}", long_click: "(){Left}",has_menu: Page_Up}
+    - {click: '0', swipe_up: "]", long_click: ')',has_menu: Page_Down}
+    #- {click: '[', long_click: '{'}
+    #- {click: ']', long_click: '}'}
+    #- {click: "?", long_click: "/"}  
+    #- {click: "'", long_click: '"'}    
+    #- {click: ".", long_click: '<'}
+    - {width: 5 }
+    - {click: ",", label: "羊", long_click: '>',hint: ",", swipe_up: ""}
+    - {click: 'p', label: "卜", long_click: "", hint: 'p',swipe_up: "P"} 
+    - {click: 'y', label: "土", long_click: "", hint: 'y',swipe_up: "Y" }
+    - {click: 'f', label: "火", long_click: "", hint: 'f',swipe_up: "F" }
+    - {click: 'g', label: "女", long_click: "", hint: 'g',swipe_up: "G" }
+    - {click: 'c', label: "尸", long_click: "", hint: 'c',swipe_up: "C" }
+    - {click: 'r', label: "廿", long_click: "_",hint: 'r', swipe_up: "R" }
+    - {click: 'l', label: "戈", long_click: "-",hint: 'l', swipe_up: "L" }
+    - {click: BackSpace,width: 15 }
+    #- {click: '/', long_click: '?'}
+    #- {click: '=', long_click: '+'}
+    #
+    #- {click: Tab, swap_up: Shift+Tab}
+    - {click: 'a', label: "金", swipe_up: "A", hint: 'a', long_click: select_all }
+    - {click: 'o', label: "口", swipe_up: "O", hint: 'o', long_click: Home}
+    - {click: 'e', label: "一", swipe_up: "E", hint: 'e', long_click: End}
+    - {click: 'u', label: "山", swipe_up: "U", hint: 'u', long_click: Page_Up}
+    - {click: 'i', label: "中", swipe_up: "I", hint: 'i', long_click: Page_Down}
+    - {click: 'd', label: "日", swipe_up: "D", hint: 'd', long_click: Left}
+    - {click: 'h', label: "心", swipe_up: "H", hint: 'h', long_click: Down,}
+    - {click: 't', label: "木", swipe_up: "T", hint: 't', long_click: Up}
+    - {click: 'n', label: "糸", swipe_up: "N", hint: 'n', long_click: Right}
+    - {click: 's', label: "手", swipe_up: "S", hint: 's', long_click: ':'}
+    #- {click: '-',swipe_up: "",  long_click: '_'}
+    #    
+    #- {click: Shift_L, label: "⇧"}
+    - {click: ';', label: "虫", swipe_up: ":", hint: ';', long_click: ":"}    
+    - {click: 'q', label: "田", swipe_up: "Q", hint: 'q', long_click: cut}
+    - {click: 'j', label: "十", swipe_up: "J", hint: 'j', long_click: copy}
+    - {click: 'k', label: "弓", swipe_up: "K", hint: 'k', long_click: paste}
+    - {click: 'x', label: "大", swipe_up: "X", hint: 'x', long_click: '~'}
+    - {click: 'b', label: "人", swipe_up: "B", hint: 'b', long_click: Insert}
+    - {click: 'm', label: "月", swipe_up: "M", hint: 'm', long_click: Delete}
+    - {click: 'w', label: "水", swipe_up: "W", hint: 'w', }
+    - {click: 'v', label: "鱼", swipe_up: "V", hint: 'v', }
+    - {click: 'z', label: "竹", swipe_up: "Z", hint: 'z', }
+    #- {click: Shift, "}
+    #    #
+    - {click: Mode_switch, long_click: Menu,width: 10,height: 50}
+    - {click: Keyboard_symbols, long_click: Keyboard_number, width: 10}  
+    - {click: "?", long_click: "@" , width: 10}
+
+    #- {click: '=', long_click: '+'}
+    - {click: space, width: 35,preview: "_",long_click: Escape,swipe_left: Keyboard_dvorakl2, swipe_right: Keyboard_dvorake2, swipe_up: Keyboard_dvorakl}
+    - {click: '/', long_click: '.'}
+    - {click: "`", long_click: '~'}
+    - {click: Return, long_click: CommitComment, width: 15}
