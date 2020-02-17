@@ -1,81 +1,44 @@
-# Rime schema settings
+# Rime schema
 # encoding: utf-8
 
 schema:
-      schema_id: cangjie5liu
-      author:
-          - 蒼頡發明人 朱邦復先生
-          - 鯨魚輸入法 發明人 臺灣之子
-      description: 
-          舞倉頡輸入法
-          倉頡輸入法 + 嘸蝦米 字根 
-          http://www.geocities.ws/mycj3/content.html
-          倉頡字母    倉    嘸
-          日（日）    A    D(Day)
-          月（月）    B    M( 英文moon )
-          金（金）    C    A( 蝦米根)
-          木（木）    D    T(tree)
-          水（水）    E    W(water)
-          火（火）    F    F(fire)
-          土（土）    G    Y
-          竹（斜）    H    Z
-          戈（點）    I    *L (重碼)
-          十（交）    J    J 
-          大（叉）    K    *X( 以叉 為字根) 
-          中（縱）    L    *I( 以緃為字根)
-          一（橫）    M    E
-          弓（勾）    N    *K(重碼 模糊音)
-          人（人）    O    B
-          心（心）    P    H
-          手（手）    Q    *S(重碼 模糊音)
-          口（口）    R    O
-          尸（側）    S    C
-          廿（并）    T    R
-          山（仰）    U    *U(重碼 倉頡字根)
-          女（紐）    V    G
-          田（方）    W    Q
-          難）糸      X    *N( 重碼  / 鯨魚輸入法 為"糸"
-          卜（卜)     Y    P
-          符  魚      Z    *V (重碼   / 鯨魚輸入法為 魚
-          虫      ,             ( 鯨魚輸入法)
-          羊      ;              (鯨魚輸入法)
-      name: 舞倉頡
-      version: "0.1.0.1"
-
-      # ---------------     
-      dependencies:
-          - luna_pinyin
-            # ---------------     
-            #  - reverse_lookup
-            #
+  name: 舞蒼檢字-詞
+  schema_id: cangjie6liu_ext
+  version: "0.2"
+  author:
+    - 朱邦復先生
+    - 沈紅蓮女士
+  description: |
+    第六代倉頡輸入法
+    碼表由雪齋、惜緣和crazy4u整理
+  dependencies:
+    - luna_pinyin
+    #- cangjie5liu
+    #- jyutping
 
 
-speller:   # 
-  alphabet: abcdefghijklmnopqrstuvwxyz 
-  # 預設 ascii-punct off 符號鍵為半形上字 特將 [] / 納入才強制觸發 punct  / . , '/ ? 
-  #alphabet: abcdefghijklmnopqrstuvwxyz;,?
-  delimiter: " ;"
-  #auto_select_pattern: "[a-z]+[CPL']"
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " "
   algebra:
       #  
-      - derive/^([^z]).{1}([a-z;,])$/$1$2\?/  # 取首尾二碼爲反查三碼字
-      - derive/^([^z]).{2}([a-z;,])$/$1$2\?\?/  # 取首尾二碼爲速成碼反查四碼字
-      - derive/^([^z]).{3}([a-z;,])$/$1$2\?\?\?/  # 取首尾二碼爲速成碼反查五碼字
-  #max_code_length: 5  # 五碼頂字上屏
+      #- derive/^([^z]).{1}([a-z;,])$/$1$2\?/  # 取首尾二碼爲反查三碼字
+      #- derive/^([^z]).{2}([a-z;,])$/$1$2\?\?/  # 取首尾二碼爲速成碼反查四碼字
+      #- derive/^([^z]).{3}([a-z;,])$/$1$2\?\?\?/  # 取首尾二碼爲速成碼反查五碼字
+
 translator: &main_tran
   #tag: main_tran
-  dictionary: &dict cangjie5liu
+  dictionary: &dict cangjie6liu.extended
   #prism: *dict
-  tips:  &dict_tips "【舞倉】"
-  closing_tips: &dict_ctips "【舞倉】"
+  tips:  &dict_tips "【舞蒼六-詞】"
+  closing_tips: &dict_ctips "【舞蒼六-詞】"
   suffix: "'"
   preedit_format: &dict_pre_fmt
       - derive/^(.+)$/\1(\U\1\)\E/
-      - &dict_pre_xlit "xlit|DMATWFYZLJXIEKBHSOCRUGQNPV|日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜符|"
+      - &dict_pre_xlit xlit|DMATWFYZLJXIEKBHSOCRUGQNPV|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片|
   comment_format: &dict_comm_fmt
       - xform/^(.+)$/ \1 /  
-      - &dict_comm_xlit "xlit|dmatwfyzljxiekbhsocrugqnpv~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜符～|"
-
+      - &dict_comm_xlit  xlit|dmatwfyzljxiekbhsocrugqnpv~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片～|
   disable_user_dict_for_patterns:
     - "^z.*$"
     - "^yyy.*$"
@@ -85,8 +48,9 @@ translator: &main_tran
   enable_sentence: false
   enable_user_dict: false
   enable_completion: true
-  #----------------------------------------------------      
-  # 所有副字典 反查 （笫一層） 分發至指定副字典（extra_tags) 
+
+#----------------------------------------------------      
+# 所有副字典 反查 （笫一層） 分發至指定副字典（extra_tags) 
 lookup:
   tag: lookup
   extra_tags: [ pinyin ,vcode ]
@@ -96,7 +60,7 @@ lookup:
 vcode:   #提供 以主字典反查副字典 extra_tags
   tag: vcode
   prefix: "`V"
-  dictionary: &vdict cangjie5liu
+  dictionary: &vdict cangjie6liu
   prism: *vdict
   tips: *dict_tips
   preedit_format: &vdict_pre_fmt
@@ -154,8 +118,6 @@ reverse_lookup_pinyin:   # filter 反查拼音碼
 
   #----------------------------------------------------      
 
-abc_segmentor:
-  extra_tags:
 recognizer:
   import_preset: default
   patterns:
@@ -165,6 +127,27 @@ recognizer:
       pinyin: "`P[a-z   ]*'?$" #第二級
   #      主字典反查 副字典
       lookup_pinyin: "^P[a-z;,?]*'?$"
+
+
+punctuator:
+  import_preset: symbols
+# 請在這裏更改標點設置，具體範例參照symbols.yaml本節
+
+
+
+switches:
+  - name: extended_charset
+    states: [ 通用, 增廣 ]
+    reset: 1
+# 默認開啓Unihan全字集
+  - name: simplification
+    states: [ 漢字, 汉字 ]
+    reset: 0
+  - name: ascii_mode
+    reset: 0
+  - name: full_shape
+    states: [ 半角, 全角 ]
+    reset: 0
 
 engine:
   filters:   
@@ -200,29 +183,12 @@ engine:
       - table_translator@vcode
       - script_translator@pinyin
 
-key_binder:
-  import_preset: default
-punctuator:
-  import_preset: symbols
-simplifier:
+
+simplify:
+  option_name: simplification
   tips: all
-simplifier:
-  tips: all  # 簡化字模式下提示對應的傳統漢字
+  tags: [ abc, pinyin, jyutping ]
 
-
-switches:
-  - name: ascii_mode
-    reset: 0
-    states: [ 中文, 西文 ]
-  - name: full_shape
-    states: [ 半角, 全角 ]
-    reset: 0
-  - name: simplification
-    states: [ 漢字, 汉字 ]
-    reset: 0
-  - name: extended_charset
-    states: [ 常用, 增廣 ]
-  - name: ascii_punct
-    states: [ 。，, ．， ]
-
-
+extended_char:
+  option_name: extended_charset
+  tags: [ abc ]

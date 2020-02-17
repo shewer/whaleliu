@@ -8,10 +8,10 @@
 name: cangjie6liu.extended
 version: "0.32"
 #sort: by_weight
-use_preset_vocabulary: false
+use_preset_vocabulary: true
 import_tables:
   - cangjie6liu
-  - cangjie6.extended
+  #- cangjie6.extended
 columns:
   - text
   - code 
@@ -19,10 +19,10 @@ columns:
 encoder:
   rules:
     - length_equal: 2
-      formula: AaAzBaBz
-    - length_equal: 3
-      formula: AaAzBaBzZa
-    - length_in_range: [4, 5]
-      formula: AaBaYaZa
+      formula: AaAzBaBzBz
+    #- length_equal: 3
+      #formula: AaAzBaBzZa
+    - length_in_range: [3, 10]
+      formula: AaAzBaBzZz
   tail_anchor: "'"
 ...

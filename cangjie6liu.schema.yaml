@@ -15,6 +15,125 @@ schema:
     - luna_pinyin
     - jyutping
 
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " "
+  algebra:
+      #  
+      - derive/^([^z]).{1}([a-z;,])$/$1$2\?/  # 取首尾二碼爲反查三碼字
+      - derive/^([^z]).{2}([a-z;,])$/$1$2\?\?/  # 取首尾二碼爲速成碼反查四碼字
+      - derive/^([^z]).{3}([a-z;,])$/$1$2\?\?\?/  # 取首尾二碼爲速成碼反查五碼字
+
+translator: &main_tran
+  #tag: main_tran
+  dictionary: &dict cangjie6liu
+  #prism: *dict
+  tips:  &dict_tips "【舞蒼六】"
+  closing_tips: &dict_ctips "【舞蒼六】"
+  suffix: "'"
+  preedit_format: &dict_pre_fmt
+      - derive/^(.+)$/\1(\U\1\)\E/
+      - &dict_pre_xlit xlit|DMATWFYZLJXIEKBHSOCRUGQNPV|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片|
+  comment_format: &dict_comm_fmt
+      - xform/^(.+)$/ \1 /  
+      - &dict_comm_xlit  xlit|dmatwfyzljxiekbhsocrugqnpv~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片～|
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+    - "^yyy.*$"
+  max_phrase_length: 5
+  enable_charset_filter: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  enable_completion: true
+
+#----------------------------------------------------      
+# 所有副字典 反查 （笫一層） 分發至指定副字典（extra_tags) 
+lookup:
+  tag: lookup
+  extra_tags: [ pinyin ,vcode ]
+  prefix: "`"
+  tips: "[反查]"
+
+vcode:   #提供 以主字典反查副字典 extra_tags
+  tag: vcode
+  prefix: "`V"
+  dictionary: &vdict cangjie6liu
+  prism: *vdict
+  tips: *dict_tips
+  preedit_format: &vdict_pre_fmt
+      - derive/^(.+)$/\1(\U\1\)\Evcode/
+      - xform/\((.)(.)(.+)\)/(\1\3\2)/
+      - *dict_pre_xlit 
+      #-  xlit|DMATWFYZLJXIEKBHSOCRUGQNPV[];,|日月金木水火土竹戈十大中一弓人心手口尸廿山女田糸卜魚左右虫羊|
+  comment_format: *dict_comm_fmt
+
+reverse_lookup:    # reverse_lookup   filter 
+    tags: [  vcode, lookup,pinyin ]
+    tag: reverse_lookupa
+    dictionary: *dict 
+    overwrite_comment: true # 覆蓋其他提示
+    comment_format: #*rcomment
+      - xlit|?~|？~|  
+      - xform/^(.+)$/〔\1〕-/
+      - *dict_comm_xlit
+    # 
+
+
+
+pinyin: &pinyin
+    tag: pinyin
+    dictionary: &pinyin_dict
+        luna_pinyin
+    tips: &pinyin_tips
+    "[拼音]"
+    closing_tips: &pinyin_ctips
+    "[拼音]"
+    prefix: "`P"
+    preedit_format: &pinyin_pre_fmt
+      - "xform/([nl])v/$1ü/"
+      - "xform/([nl])ue/$1üe/"
+      - "xform/([jqxy])v/$1u/"
+      - xform/$/(拼)
+    comment_format: &pinyin_comm_fmt
+      - xform/^(.*)$/［\1］拼/
+        # 反查拼音    
+
+lookup_pinyin:  # 反查拼音碼 進入點  extra_tag to vcode
+    tag: lookup_pinyin
+    extra_tags: [vcode]
+    prefix: "P"
+    #suffix: "P"
+    tips: "[反查拼音]"
+    closing_tips: "[反查拼音]"
+    preedit_format: *dict_pre_fmt
+
+reverse_lookup_pinyin:   # filter 反查拼音碼 
+    tags: [ lookup_pinyin ]
+    dictionary: *pinyin_dict
+    overwrite_comment: true 
+    comment_format: *pinyin_comm_fmt
+
+  #----------------------------------------------------      
+
+recognizer:
+  import_preset: default
+  patterns:
+      #pinyin: "^P[a-z]*'?$"
+      lookup: "`[a-z,;?]*'?$|[a-z,;?]+`$"  # 第一級
+      vcode:  "`V[^z]*'?$|^[a-z,;]{2}[?]+$"
+      pinyin: "`P[a-z   ]*'?$" #第二級
+  #      主字典反查 副字典
+      lookup_pinyin: "^P[a-z;,?]*'?$"
+
+
+punctuator:
+  import_preset: symbols
+# 請在這裏更改標點設置，具體範例參照symbols.yaml本節
+
+
+
 switches:
   - name: extended_charset
     states: [ 通用, 增廣 ]
@@ -30,39 +149,39 @@ switches:
     reset: 0
 
 engine:
+  filters:   
+      - single_char_filter
+      - simplifier
+      - uniquifier
+      - reverse_lookup_filter@reverse_lookup  #  轉 主字典碼以 tags 選
+      - reverse_lookup_filter@reverse_lookup_pinyin  #  轉 主字典碼以 tags 選
   processors:
-    - ascii_composer
-    - recognizer
-    - key_binder
-    - speller
-    - punctuator
-    - selector
-    - navigator
-    - express_editor
+      - ascii_composer
+      - recognizer
+      - key_binder
+      - speller
+      - punctuator
+      - selector
+      - navigator
+      - express_editor
   segmentors:
-    - ascii_segmentor
-    - matcher
-    - abc_segmentor
-    - affix_segmentor@pinyin
-    - affix_segmentor@jyutping
-    - affix_segmentor@pinyin_lookup
-    - affix_segmentor@jyutping_lookup
-    - affix_segmentor@reverse_lookup
-    - punct_segmentor
-    - fallback_segmentor
+      - ascii_segmentor
+      - matcher
+      - abc_segmentor
+      - affix_segmentor@vcode # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@lookup # 1 tag -extrato-> pinyin_lookup .....
+
+      - affix_segmentor@pinyin # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@lookup_pinyin # 1 tag -extrato-> pinyin_lookup .....
+      - affix_segmentor@reverse_lookup_pinyin # 1 tag -extrato-> pinyin_lookup .....
+      - punct_segmentor
+      - fallback_segment 
   translators:
-    - punct_translator
-    - table_translator
-    - script_translator@pinyin
-    - script_translator@jyutping
-    - script_translator@pinyin_lookup
-    - script_translator@jyutping_lookup
-  filters:
-    - simplifier@simplify
-    - charset_filter@extended_char
-    - uniquifier
-    - reverse_lookup_filter@pinyin_reverse_lookup
-    - reverse_lookup_filter@jyutping_reverse_lookup
+      - punct_translator
+      - table_translator
+      - table_translator@vcode
+      - script_translator@pinyin
+
 
 simplify:
   option_name: simplification
@@ -72,152 +191,3 @@ simplify:
 extended_char:
   option_name: extended_charset
   tags: [ abc ]
-
-speller:
-  alphabet: zyxwvutsrqponmlkjihgfedcba
-  delimiter: " "
-
-translator:
-  dictionary: &dict
-    cangjie6liu
-# 若不需鍵詞，請刪去上條中之「.extended」
-# 若需簡體詞，请將上條中之「.extended」改爲「.extsimp」
-  enable_user_dict: true
-# 不想自動調頻的話，將上條中「true」改爲「false」
-  enable_sentence: true
-  sentence_over_completion: true
-  enable_encoder: true
-# 不想自動組詞〔記錄輸入過的詞，然後變成五碼固定詞〕的話可以把上條中「true」改爲「false」
-  encode_commit_history: true
-  max_phrase_length: 5
-  preedit_format: &cj6_pformat
-    - xlit|dmatwfyzljxiekbhsocrugqnpv |日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|
-    #- xlit|abcdefghijklmnopqrstuvwxyz|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片|
-  comment_format: &cj6_cformat
-    - xlit|dmatwfyzljxiekbhsocrugqnpv~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|
-    #- xlit|abcdefghijklmnopqrstuvwxyz~|日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片・|
-  initial_quality: 0.75	# 調整該編譯器出字優先度
-
-pinyin:
-  tag: pinyin
-  dictionary: luna_pinyin
-  prefix: P
-# 漢語拼音輸入以〔大寫〕「P」引導
-  suffix: &suffix_char
-    "'"
-  preedit_format: &pinyin
-    - xform/([nl])v/$1ü/
-    - xform/([nl])ue/$1üe/
-    - xform/([jqxy])v/$1u/
-  tips: 【漢拼】
-  closing_tips: 【蒼頡】
-  initial_quality: 0.2	# 調整該編譯器出字優先度
-
-jyutping:
-  tag: jyutping
-  dictionary: jyutping
-  prefix: J
-# 粵拼輸入以〔大寫〕「J」引導
-  suffix: *suffix_char
-  #suffix: ;
-  tips: 【粵拼】
-  closing_tips: 【蒼頡】
-  initial_quality: 0.1	# 調整該編譯器出字優先度
-
-#abc_segmentor:
-#  extra_tags: [pinyin, jyutping ]
-# 若想蒼頡、漢語拼音、粵拼混用，請啓用以上兩條〔刪去以上兩條爲首之「#」〕
-
-reverse_lookup:
-  tag: reverse_lookup
-  prefix: "`"
-# 反查引導鍵「`」
-  suffix: *suffix_char
-  #suffix: ;
-  tips: 【反查】
-  closing_tips: 【蒼頡】
-  extra_tags:
-    - pinyin_lookup
-    - jyutping_lookup
-# 若不想在【反查】時加入漢語拼音或粵拼反查，請在上兩條中刪去相應「pinyin_lookup」或「jyutping_lookup」
-
-pinyin_lookup:
-  tag: pinyin_lookup
-  prefix: "`P"
-# 獨用漢語拼音反查在反查鍵「`」之後再鍵入〔大寫〕「P」
-  suffix: *suffix_char
-  #suffix: ;
-  dictionary: luna_pinyin
-  preedit_format: *pinyin
-  tips: 【漢拼反查】
-  closing_tips: 【蒼頡】
-  initial_quality: 1	# 調整該編譯器出字優先度
-
-jyutping_lookup:
-  tag: jyutping_lookup
-  prefix: "`J"
-# 獨用粵拼反查在反查鍵「`」之後再鍵入〔大寫〕「J」
-  suffix: *suffix_char
-  #suffix: ;
-  dictionary: jyutping
-  tips: 【粵拼反查】
-  closing_tips: 【蒼頡】
-  initial_quality: 0.5	# 調整該編譯器出字優先度
-
-pinyin_reverse_lookup:
-  tags: [ pinyin_lookup ]
-  dictionary: *dict
-  overwrite_comment: true  # 覆蓋其他提示
-  comment_format: &comment
-    - xform/$/〕/
-    - xform/^/〔/
-    #- xlit|abcdefghijklmnopqrstuvwxyz |日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|
-    - xlit|dmatwfyzljxiekbhsocrugqnpv |日月金木水火土竹戈十大中一弓人心手口尸廿山女田止卜片、|
-jyutping_reverse_lookup:
-  tags: [ jyutping_lookup ]
-  dictionary: *dict
-  overwrite_comment: true  # 覆蓋其他提示
-  comment_format: *comment
-
-punctuator:
-  import_preset: symbols
-# 請在這裏更改標點設置，具體範例參照symbols.yaml本節
-
-key_binder:
-  import_preset: default
-  bindings:
-    - when: has_menu
-      accept: period
-      send: 3
-    - when: has_menu
-      accept: Tab
-      send: Page_Down
-    - when: has_menu
-      accept: Shift+Tab
-      send: Page_Up
-    - when: has_menu
-      accept: "-"
-      send: 2
-    - when: has_menu
-      accept: "="
-      send: Up
-    - when: has_menu
-      accept: "/"
-      send: Down
-
-recognizer:
-  import_preset: default
-  patterns:
-    reverse_lookup: "`[a-z]*'?$"
-# 反查引導鍵
-    pinyin_lookup: "`P[a-z]*'?$"
-# 漢語拼音反查引導鍵
-    jyutping_lookup: "`J[a-z]*;?$"
-# 粵拼反查引導鍵
-    pinyin: "(?<!`)P[a-z']*'?$"
-# 漢語拼音輸入引導鍵
-    jyutping: "(?<!`)J[a-z']*'?$"
-# 粵拼輸入引導鍵
-    punct: "^/[0-9]?[a-z]*$"
-# 以「/」引導特殊符號
-

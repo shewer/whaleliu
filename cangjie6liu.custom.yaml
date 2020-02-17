@@ -1,0 +1,21 @@
+
+
+patch:
+
+    key_binder:
+      import_preset: default
+      bindings:
+        - {when: has_menu ,accept: period ,send: 3}
+        - {when: has_menu ,accept: Tab ,send: Page_Down}
+        - {when: has_menu ,accept: Shift+Tab ,send: Page_Up}
+        - {when: has_menu ,accept: "-" ,send: 2}
+        - {when: has_menu ,accept: "=" ,send: Up}
+        - {when: has_menu ,accept: "/" ,send: Down}
+
+    translator/max_phrase_length: 5
+    translator/enable_charset_filter: false
+    translator/enable_encoder: false
+    translator/enable_sentence: false
+    translator/enable_user_dict: false
+    translator/enable_completion: true
+
