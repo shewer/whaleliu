@@ -32,12 +32,17 @@ patch:
     #translator/user_dict: user_dict
     #translator/db_class: tabledb
     translator/enable_charset_filter: true
-    translator/enable_encoder: false
-    translator/enable_sentence: false
-    translator/enable_user_dict: false
+    translator/enable_encoder: true
+    translator/enable_sentence: true
+    translator/enable_user_dict: true
     # 顯示預選字 on/off
     translator/enable_completion: true
+    translator/disable_user_dict_for_patterns:
+        - "^.?$"
+
     #key_binder/bindings/+: 
+    punctuator/half_shape/.: [ "。",".","．","·" ]
+    punctuator/full_shape/.: [ "。",".","．","·" ]
     key_binder/bindings:
         - when: has_menu # 次字上屏
           accept: "-"

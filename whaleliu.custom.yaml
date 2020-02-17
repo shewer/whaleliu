@@ -36,30 +36,32 @@ patch:
     translator/enable_sentence: false
     translator/enable_user_dict: false
     translator/enable_completion: true
+    punctuator/half_shape/.: [ "。",".","．","·" ]
+    punctuator/full_shape/.: [ "。",".","．","·" ]
     #key_binder/bindings/+: 
-    key_binder/bindings:
-        - when: has_menu # 次字上屏
-          accept: "-"
-          send: 2
-        - when: has_menu # 第三字上屏
-          accept: "."
-          send: 3
-        - when: has_menu # 下一頁
-          accept: Tab
-          send: Page_Down
-        - when: has_menu # 上一頁
-          accept: Shift+Tab 
-          send: Page_Up
+    #key_binder/bindings:
+        #- when: has_menu # 次字上屏
+          #accept: "-"
+          #send: 2
+        #- when: has_menu # 第三字上屏
+          #accept: "."
+          #send: 3
+        #- when: has_menu # 下一頁
+          #accept: Tab
+          #send: Page_Down
+        #- when: has_menu # 上一頁
+          #accept: Shift+Tab 
+          #send: Page_Up
           
-        - when: has_menu # 光棒上移
-          accept: "="
-          send: Up
-        - when: has_menu # 光棒下移
-          accept: "/"
-          send: Down
+        #- when: has_menu # 光棒上移
+          #accept: "="
+          #send: Up
+        #- when: has_menu # 光棒下移
+          #accept: "/"
+          #send: Down
           # 空白鍵 : 無字 清碼 有字上屏 
-        - { when: composing, accept: space, send: Escape }
-        - { when: has_menu, accept: space, send: space }
+        #- { when: composing, accept: space, send: Escape }
+        #- { when: has_menu, accept: space, send: space }
     # 最大碼 
     speller/max_code_length: 5
     #recognizer/patterns/uppercase:
