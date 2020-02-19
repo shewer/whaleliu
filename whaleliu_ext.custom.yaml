@@ -38,7 +38,7 @@ patch:
     # 顯示預選字 on/off
     translator/enable_completion: true
     translator/disable_user_dict_for_patterns:
-        - "^.?$"
+        - "^..?$"
 
     #key_binder/bindings/+: 
     punctuator/half_shape/.: [ "。",".","．","·" ]

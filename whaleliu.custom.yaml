@@ -31,11 +31,16 @@ patch:
     #style/fullscreen: true
     #translator/user_dict: user_dict
     #translator/db_class: tabledb
+    # 打開 使用者字頻  
     translator/enable_charset_filter: true
-    translator/enable_encoder: false
-    translator/enable_sentence: false
-    translator/enable_user_dict: false
+    translator/enable_encoder: true
+    translator/enable_sentence: true
+    translator/enable_user_dict: true
+    # 顯示預選字 on/off
     translator/enable_completion: true
+    # 一兩碼字不調整
+    translator/disable_user_dict_for_patterns:
+        - "^..?$"
     punctuator/half_shape/.: [ "。",".","．","·" ]
     punctuator/full_shape/.: [ "。",".","．","·" ]
     #key_binder/bindings/+: 
