@@ -14,6 +14,39 @@ schema 參照 cangjie6.schema
 * Rctrl 中英
 * ctrl-space  半 全
 
+倉五口訣|倉三|倉五|大新|鯨魚|嘸|註
+---|---|---|---|---|---|---
+日（日）|A|A|A|A|D（day)|
+月（月）|B|B|B|B|M(moon)|
+金（金）|C|C|C|C|A(金)|
+木（木）|D|D|D|D|T(tree)|
+水（水）|E|E|E|E|W(water)|
+火（火）|F|F|F|F|F(fire)|
+土（土）|G|G|G|G|Y(土)|
+竹（斜）|H|H|H|H|Z(竹)|
+*戈（點）|I|I|I|I|重碼(A)|L（形)
+十（交）|J|J|J|J|J(十)|
+大（叉）|K|K|K|K|X（乂)|
+中（縱）|L|L|L|L|I(丨)|
+一（橫）|M|M|M|M|E(一)|
+*弓（勾）|N|N|N|N|重碼(Q)|K(𠃌)
+人（人）|O|O|O|O|B(人)|
+心（心）|P|P|P|P|H(心)|
+*手（手）|Q|Q|Q|Q|重碼(H)|S(丰）
+口（口）|R|R|R|R|O(口)|
+尸（側）|S|S|S|S|C(尸)|
+廿（并）|T|T|T|T|R(廿卝)|
+山（仰）|U|U|U|U|U（凵)|
+女（紐）|V|V|V|V|G(girl)|
+田（方）|W|W|W|W|Q(田)|
+*X(難)|X()|X(難)|X(糸)|N(音)|
+卜|Y|Y|Y|Y|P(卜）|
+*符|Z|Z(言)|Z（魚)|重碼(Z)|V(剩碼）|
+*；| | |(禾食)|虫|虫
+*，| | | |羊|羊|
+
+
+
 
 ```
    http://www.geocities.ws/mycj3/content.html
